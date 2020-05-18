@@ -1,0 +1,1 @@
+export const SET_CROP_BOX_DETAILS = 'SET_CROP_BOX_DETAILS'
