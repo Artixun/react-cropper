@@ -5,9 +5,15 @@ body {
   background: #f9f9f9;
 }
 
-#imageCropper {
-  width: 100%;
+.border-20 {
+  border: 20px solid #fff;
+
+  .imagecropper-container {
+    max-height: 500px;
+    max-width: 100%;
+  }
 }
+
 
 .dropzone-container {
   width: 100%;
@@ -27,5 +33,126 @@ body {
 .number-input {
   &::-webkit-inner-spin-button {
     display: none;
+  }
+}
+
+.opacity-0 {
+  opacity: 1;
+}
+
+.cropper-container {
+  .cropper-crop-box {
+    box-shadow: 0 0 10px 15px rgba(0, 0, 0, 0.2);
+  }
+  .cropper-view-box {
+    outline: 10px solid #fff;
+
+    & ~ .cropper-dashed {
+      border-style: solid;
+      border-color: #fff;
+
+      &.guides-golden {
+        display: block !important;
+
+        &.dashed-v {
+          width: 20%;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+
+        &.dashed-h {
+          height: 20%;
+          top: 50%;
+          transform: translateY(-50%);
+        }
+      }
+
+      &.guides-4 {
+        display: block !important;
+        
+        &::before {
+          content: '';
+          position: absolute;
+          background: #fff;
+        }
+
+        &.dashed-v {
+          width: 50%;
+          left: 50%;
+          transform: translateX(-50%);
+
+          &::before {
+            height: 100%;
+            width: 1px;
+            left: 50%;
+            transform: translateX(-50%);
+          }
+        }
+
+        &.dashed-h {
+          height: 50%;
+          top: 50%;
+          transform: translateY(-50%);
+
+          &::before {
+            width: 100%;
+            height: 1px;
+            top: 50%;
+            transform: translateY(-50%);
+          }
+        }
+      }
+    }
+
+    &.dark-outline {
+      outline: 10px solid #000;
+
+      & ~ .cropper-dashed {
+        border-color: #000;
+
+        &.guides-4 {
+          display: block !important;
+          &::before {
+            background: #000;
+          }
+        }
+      }
+    }
+  }
+
+  .cropper-point,
+  .cropper-line{
+    opacity: 0 !important;
+  }
+  .cropper-face {
+    background: transparent;
+  }
+}
+
+.view-options {
+  .ico {
+    display: block;
+    height: 20px;
+    width: 20px;
+
+    &-background {
+      background-image: repeating-linear-gradient(135deg, #000, #000 8%, #fff 8%, #fff 16%);
+    }
+    &-guides-3 {
+      background-image: repeating-linear-gradient(to right,#000,#000 10%,transparent 10%,transparent 28%,#000 28%,#000 38%,transparent 38%,transparent 61%,#000 61%),
+      repeating-linear-gradient(to top,#000,#000 10%,transparent 10%,transparent 28%,#000 28%,#000 38%,transparent 38%,transparent 61%,#000 61%);
+    }
+    &-guides-4 {
+      background-image: repeating-linear-gradient(to right,#000,#000 5%,transparent 5%,transparent 22.5%,#000 22.5%,#000 27.5%,transparent 27.5%,transparent 47.5%,#000 47.5%),
+      repeating-linear-gradient(to top,#000,#000 5%,transparent 5%,transparent 24.5%),
+      linear-gradient(to bottom, #000, #000 5%, transparent 5%);
+    }
+    &-guides-golden {
+      background-image: linear-gradient(to right,#000, #000 1px, transparent 1px, transparent calc(40% - 1px), #000 calc(40% - 1px), #000 40%, transparent 40%, transparent 60%,#000 60%, #000 calc(60% + 1px), transparent calc(60% + 1px), transparent calc(100% - 1px), #000 calc(100% - 1px)),
+      linear-gradient(to bottom,#000, #000 1px, transparent 1px, transparent calc(40% - 1px), #000 calc(40% - 1px), #000 40%, transparent 40%, transparent 60%,#000 60%, #000 calc(60% + 1px), transparent calc(60% + 1px), transparent calc(100% - 1px), #000 calc(100% - 1px))
+    }
+    &-outline {
+      border: 2px solid #000;
+    }
   }
 }

@@ -44,7 +44,7 @@ export class Home extends Component {
     const { image } = this.state
 
     return (
-      <Container>
+      <Container className="pb-5">
         <h1>Home</h1>
 
         {image

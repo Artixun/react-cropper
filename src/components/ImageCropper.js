@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import CropDetails from 'components/CropDetails'
 import { connect } from 'react-redux'
 import { setCropBoxDetails } from 'store/actions/cropDetails'
+import ViewOptions from 'components/ViewOptions'
 
 export class ImageCropper extends Component {
   constructor (props) {
@@ -22,13 +23,9 @@ export class ImageCropper extends Component {
 
     this.cropper = new Cropper(image, {
       viewMode: 3,
-      zoomOnWheel: false,
       responsive: true,
-      ready: () => {
-        // this.forceUpdate()
-        if (!this.state.cropper) this.setState({ cropper: true })
-        console.log('ready', new Date().getTime())
-      },
+      guides: false,
+      center: false,
       crop: (event) => {
         console.log(this.cropper.getCropBoxData())
         this.props.setCropBoxDetails(this.cropper.getCropBoxData())
@@ -36,9 +33,9 @@ export class ImageCropper extends Component {
     })
   }
 
-  componentDidUpdate () {
-    this.cropper.replace(this.props.image.url)
-    console.log('asdas')
+  componentDidUpdate (prevProps) {
+    if (this.props.image.url !== prevProps.image.url) this.cropper.replace(this.props.image.url)
+    console.log('asdas', this.props.image.width / this.props.image.height)
   }
 
   downloadCroppedImage = () => {
@@ -55,15 +52,25 @@ export class ImageCropper extends Component {
 
   render () {
     const { image } = this.props
+    const ratio = image.width / image.height
 
     return (
       <div>
         <Row>
-          <Col md="8" className="p-0">
-            <img id="imageCropper" src={image.url} alt="cropper" width="500px"></img>
+          <Col md="8" className="d-flex flex-column align-items-center">
+            <div className="mw-100 border-20 shadow">
+              <div className="imagecropper-container" style={{
+                width: ratio < 1 ? ratio * 500 : '100%',
+                height: ratio > 1.5 && ratio < 2.5 ? (450 * ratio) / ratio : ratio > 2.5 ? (250 * ratio) / ratio : 'auto'
+              }}>
+                <img id="imageCropper" src={image.url} alt="cropper"></img>
+              </div>
+            </div>
+
+            <ViewOptions image={image} />
           </Col>
-          <Col md="4" className="px-4">
-            <CropDetails image={image} cropper={this.cropper} downloadCroppedImage={this.downloadCroppedImage} onChangeImage={this.props.onChangeImage} />
+          <Col md="4">
+            <CropDetails image={image} cropper={this.cropper} downloadCroppedImage={this.downloadCroppedImage} onChangeImage={this.props.onChangeImage} hideGuides={this.hideGuides} />
           </Col>
         </Row>
       </div>
