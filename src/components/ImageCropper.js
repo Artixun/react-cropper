@@ -17,8 +17,6 @@ export class ImageCropper extends Component {
   }
 
   componentDidMount () {
-    console.log('mounted', new Date().getTime())
-
     const image = document.getElementById('imageCropper')
 
     this.cropper = new Cropper(image, {
@@ -26,8 +24,10 @@ export class ImageCropper extends Component {
       responsive: true,
       guides: false,
       center: false,
+      ready: () => {
+        this.forceUpdate()
+      },
       crop: (event) => {
-        console.log(this.cropper.getCropBoxData())
         this.props.setCropBoxDetails(this.cropper.getCropBoxData())
       }
     })
@@ -35,7 +35,6 @@ export class ImageCropper extends Component {
 
   componentDidUpdate (prevProps) {
     if (this.props.image.url !== prevProps.image.url) this.cropper.replace(this.props.image.url)
-    console.log('asdas', this.props.image.width / this.props.image.height)
   }
 
   downloadCroppedImage = () => {

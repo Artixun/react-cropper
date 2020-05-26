@@ -23,32 +23,25 @@ export class CropDetails extends Component {
   }
 
   setAspectRatio =(ratio) => {
-    console.log(ratio)
     this.setState({ aspectRatio: ratio })
     this.props.cropper.setAspectRatio(ratio)
   }
 
   setSize = (size) => {
     const { height, width } = this.props.cropper.getImageData()
-    console.log(height, width)
     this.setState({ size: size })
     this.props.cropper.setCropBoxData({ width: width / size, height: height / size })
   }
 
   onCropBoxDataChange = (event) => {
-    console.log({ [event.target.name]: parseInt(event.target.value) })
     this.props.cropper.setCropBoxData({ [event.target.name]: parseInt(event.target.value) })
   }
 
   onChangeImage = async () => {
-    console.log('onChangeImage')
-
     const file = this.imageInput.current.files[0]
 
     if (file) {
       this.props.onChangeImage(file)
-
-      console.log(this.props.image)
     }
   }
 
@@ -57,7 +50,6 @@ export class CropDetails extends Component {
     const cropBox = cropper.getCropBoxData()
     const container = cropper.getContainerData()
 
-    console.log(cropBox, container)
     this.setState({ position: pos })
 
     switch (pos) {

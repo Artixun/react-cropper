@@ -33,8 +33,6 @@ export class Home extends Component {
         width: width
       }
 
-      console.log(image)
-
       setChangedImage(image)
     }
     img.src = objectURL

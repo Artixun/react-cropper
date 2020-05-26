@@ -8,22 +8,38 @@ export class ViewOptions extends Component {
     palette: null
   }
 
-  componentDidMount () {
-    console.log(this.props.image.url)
-
+  componentDidMount() {
     Vibrant.from(this.props.image.url).getPalette((err, palette) => {
-      console.log(palette)
       this.setState({ palette })
-
-      this.renderPalette()
-      console.error(err)
+      if(err) console.error(err)
     })
   }
 
   renderPalette = () => {
-    this.state.palette.map(swatch => [
-      console.log('this.state.palette.map', swatch)
-    ])
+    const colors = []
+
+    if (this.state.palette) {
+      for (let [key, value] of Object.entries(this.state.palette)) {
+        colors.push(<OverlayTrigger
+          key={key}
+          placement="bottom"
+          trigger="focus"
+          overlay={
+            <Tooltip>
+              Color Copied!
+            </Tooltip>
+          }
+        >
+          <Button variant="light" className="bg-white shadow-none p-0 border-1" onClick={() => {
+            navigator.clipboard.writeText(value.getHex())
+          }}>
+            <span className="ico" style={{ background: value && value.getHex() }}></span>
+          </Button>
+        </OverlayTrigger>)
+      }
+    }
+
+    return colors
   }
 
   toggleGuide3 = () => {
@@ -80,12 +96,11 @@ export class ViewOptions extends Component {
     vewBox.classList.toggle('opacity-0')
   }
 
-  render () {
-    const { palette } = this.state
-
+  render() {
     return (
       <div className="d-flex w-100 pt-3">
-        <div className="d-flex align-items-center view-options">
+        <div className="w-100 d-flex align-items-center justify-content-between view-options">
+          <div>
           <Button variant="light" className="bg-white shadow-none p-0 border-1 mr-1" onClick={this.hideBackground}>
             <span className="ico ico-background"></span>
           </Button>
@@ -105,27 +120,11 @@ export class ViewOptions extends Component {
           <Button variant="light" className="bg-white shadow-none p-0 border-1 mr-1" onClick={this.toggleGuideGolden}>
             <span className="ico ico-guides-golden"></span>
           </Button>
+          </div>
 
-          <Button variant="light" className="bg-white shadow-none p-0 border-1 mr-1">
-            <span className="ico" style={{ background: palette && palette.Vibrant.getHex() }}></span>
-          </Button>
-
-          <OverlayTrigger
-            placement="bottom"
-            trigger="focus"
-            overlay={
-              <Tooltip>
-                Color Copied!
-              </Tooltip>
-            }
-          >
-            <Button variant="light" className="bg-white shadow-none p-0 border-1 mr-1" onClick={() => {
-              navigator.clipboard.writeText(palette.DarkVibrant.getHex())
-            }}>
-              <span className="ico" style={{ background: palette && palette.DarkVibrant.getHex() }}></span>
-            </Button>
-          </OverlayTrigger>
-
+          <div>
+          {this.renderPalette()}
+          </div>
         </div>
       </div>
     )
