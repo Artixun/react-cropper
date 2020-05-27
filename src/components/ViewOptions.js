@@ -8,10 +8,18 @@ export class ViewOptions extends Component {
     palette: null
   }
 
-  componentDidMount() {
+  componentDidMount () {
+    this.getPalette()
+  }
+
+  componentDidUpdate (prevProps) {
+    if (prevProps.image.url !== this.props.image.url) this.getPalette()
+  }
+
+  getPalette = () => {
     Vibrant.from(this.props.image.url).getPalette((err, palette) => {
       this.setState({ palette })
-      if(err) console.error(err)
+      if (err) console.error(err)
     })
   }
 
@@ -19,7 +27,7 @@ export class ViewOptions extends Component {
     const colors = []
 
     if (this.state.palette) {
-      for (let [key, value] of Object.entries(this.state.palette)) {
+      for (const [key, value] of Object.entries(this.state.palette)) {
         colors.push(<OverlayTrigger
           key={key}
           placement="bottom"
@@ -96,34 +104,34 @@ export class ViewOptions extends Component {
     vewBox.classList.toggle('opacity-0')
   }
 
-  render() {
+  render () {
     return (
       <div className="d-flex w-100 pt-3">
         <div className="w-100 d-flex align-items-center justify-content-between view-options">
           <div>
-          <Button variant="light" className="bg-white shadow-none p-0 border-1 mr-1" onClick={this.hideBackground}>
-            <span className="ico ico-background"></span>
-          </Button>
+            <Button variant="light" className="bg-white shadow-none p-0 border-1 mr-1" onClick={this.hideBackground}>
+              <span className="ico ico-background"></span>
+            </Button>
 
-          <Button variant="light" className="bg-white shadow-none p-0 border-1 mr-5" onClick={this.changeOutline}>
-            <span className="ico ico-outline"></span>
-          </Button>
+            <Button variant="light" className="bg-white shadow-none p-0 border-1 mr-5" onClick={this.changeOutline}>
+              <span className="ico ico-outline"></span>
+            </Button>
 
-          <Button variant="light" className="bg-white shadow-none p-0 border-1 mr-1" onClick={this.toggleGuide3}>
-            <span className="ico ico-guides-3"></span>
-          </Button>
+            <Button variant="light" className="bg-white shadow-none p-0 border-1 mr-1" onClick={this.toggleGuide3}>
+              <span className="ico ico-guides-3"></span>
+            </Button>
 
-          <Button variant="light" className="bg-white shadow-none p-0 border-1 mr-1" onClick={this.toggleGuide4}>
-            <span className="ico ico-guides-4"></span>
-          </Button>
+            <Button variant="light" className="bg-white shadow-none p-0 border-1 mr-1" onClick={this.toggleGuide4}>
+              <span className="ico ico-guides-4"></span>
+            </Button>
 
-          <Button variant="light" className="bg-white shadow-none p-0 border-1 mr-1" onClick={this.toggleGuideGolden}>
-            <span className="ico ico-guides-golden"></span>
-          </Button>
+            <Button variant="light" className="bg-white shadow-none p-0 border-1 mr-1" onClick={this.toggleGuideGolden}>
+              <span className="ico ico-guides-golden"></span>
+            </Button>
           </div>
 
           <div>
-          {this.renderPalette()}
+            {this.renderPalette()}
           </div>
         </div>
       </div>

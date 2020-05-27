@@ -156,3 +156,21 @@ body {
     }
   }
 }
+
+@media (max-width: 576px) { 
+  .border-20 {
+    border: 10px solid #fff;
+  }
+
+  .cropper-crop-box {
+    box-shadow: 0 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+  }
+
+  .cropper-view-box {
+    outline: 5px solid #fff !important;
+
+    &.dark-outline {
+      outline: 5px solid #000  !important;
+    }
+  }
+}

@@ -52,6 +52,9 @@ export class ImageCropper extends Component {
   render () {
     const { image } = this.props
     const ratio = image.width / image.height
+    const height1 = (window.innerWidth / window.innerHeight) < 1 ? 250 * ratio : 350 * ratio
+    const height2 = (window.innerWidth / window.innerHeight) < 1 ? 125 * ratio : 225 * ratio
+    const height3 = (window.innerWidth / window.innerHeight) < 1 ? 50 * ratio : 75 * ratio
 
     return (
       <div>
@@ -60,7 +63,7 @@ export class ImageCropper extends Component {
             <div className="mw-100 border-20 shadow">
               <div className="imagecropper-container" style={{
                 width: ratio < 1 ? ratio * 500 : '100%',
-                height: ratio > 1.5 && ratio < 2.5 ? (450 * ratio) / ratio : ratio > 2.5 ? (250 * ratio) / ratio : 'auto'
+                height: ratio > 1 && ratio < 1.5 ? height1 : ratio > 1.5 && ratio < 2.5 ? height2 : ratio > 2.5 ? height3 : 'auto'
               }}>
                 <img id="imageCropper" src={image.url} alt="cropper"></img>
               </div>
