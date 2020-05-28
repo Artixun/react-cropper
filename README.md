@@ -1,3 +1,7 @@
+## Demo
+
+![Demo](https://github.com/Artixun/react-cropper/blob/master/demo/images/demo.png?raw=true)
+
 ## Technologies
 
 - [cropperjs](https://www.npmjs.com/package/cropperjs)

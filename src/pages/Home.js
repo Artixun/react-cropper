@@ -42,8 +42,7 @@ export class Home extends Component {
     const { image } = this.state
 
     return (
-      <Container className="pb-5">
-        <h1>Home</h1>
+      <Container className="pb-5 flex-grow-1">
 
         {image
           ? <ImageCropper image={image} onChangeImage={this.onChangeImage} />

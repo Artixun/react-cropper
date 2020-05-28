@@ -4,7 +4,7 @@ import { Container } from 'react-bootstrap'
 export class About extends Component {
   render () {
     return (
-      <Container>
+      <Container className="flex-grow-1">
         <h1>About</h1>
       </Container>
     )
