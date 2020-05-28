@@ -1,6 +1,6 @@
 ## Demo
 
-![Demo](https://github.com/Artixun/react-cropper/blob/master/demo/images/demo.png?raw=true)
+[![Demo](https://github.com/Artixun/react-cropper/blob/master/demo/images/demo.png?raw=true)](https://cropyourimage.netlify.app)
 
 ## Technologies
 
